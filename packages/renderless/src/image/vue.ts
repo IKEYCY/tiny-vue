@@ -68,6 +68,8 @@ const initState = ({
     imageHeight: 0,
     show: !props.lazy,
     showViewer: false,
+    // 添加 initialIndex 状态
+    initialIndex: props.initialIndex || 0,
     getPreview: computed(() => api.computedGetPreview()),
     getImageStyle: computed(() => api.computedGetImageStyle()),
     getAlignCenter: computed(() => api.computedGetAlignCenter()),
@@ -90,7 +92,7 @@ const initApi = ({
   Object.assign(api, {
     state,
     closeViewer: closeViewer(state),
-    clickHandler: clickHandler(state),
+    clickHandler: clickHandler({ state, props }), // 修改点击处理函数
     handleLoad: handleLoad({ state, emit }),
     handleError: handleError({ state, emit }),
     computedGetPreview: computedGetPreview(props),
@@ -118,6 +120,17 @@ const initWatch = ({ watch, state, api, props }: Pick<IImageRenderlessParams, 's
     () => state.show,
     (value) => value && api.loadImage()
   )
+
+  // 监听 initialIndex 的变化
+  watch(
+    () => props.initialIndex,
+    (value) => {
+      if (value !== undefined && value >= 0) {
+        state.initialIndex = Math.min(value, (props.previewSrcList?.length || 1) - 1)
+      }
+    },
+    { immediate: true }
+  )
 }
 
 export const renderless = (
@@ -136,9 +149,10 @@ export const renderless = (
   onMounted(api.mounted)
   onBeforeUnmount(() => props.lazy && api.removeLazyLoadListener())
 
+  // 向下传递预览相关的数据
   provide('mfPreviewVisible', state.mfPreviewVisible)
-
   provide('urlList', props.previewSrcList)
+  provide('initialIndex', state.initialIndex) // 添加初始索引
 
   return api
 }

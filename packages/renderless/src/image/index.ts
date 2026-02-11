@@ -167,10 +167,19 @@ export const getImageStyle =
     return {}
   }
 
-export const clickHandler = (state: IImageState) => () => {
-  state.showViewer = true
-  state.mfPreviewVisible = true
-}
+// 修改点击处理函数，传递 initialIndex
+export const clickHandler =
+  ({ state, props }: Pick<IImageRenderlessParams, 'state' | 'props'>) =>
+  () => {
+    // 验证 initialIndex 的有效性
+    const previewList = props.previewSrcList || []
+    const maxIndex = Math.max(0, previewList.length - 1)
+    const initialIndex = Math.min(Math.max(props.initialIndex || 0, 0), maxIndex)
+
+    state.initialIndex = initialIndex
+    state.showViewer = true
+    state.mfPreviewVisible = true
+  }
 
 export const closeViewer = (state: IImageState) => () => (state.showViewer = false)
 

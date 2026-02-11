@@ -75,7 +75,8 @@ export default defineComponent({
     'zIndex',
     'keepStyle',
     'showIndex',
-    'appendToBody'
+    'appendToBody',
+    'initialIndex' // 添加 initialIndex 属性
   ],
   setup(props, context) {
     return setup({ props, context, renderless, api }) as unknown as IImageApi

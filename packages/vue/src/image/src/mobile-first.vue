@@ -82,7 +82,8 @@ export default defineComponent({
     'round',
     'imageSize',
     'keepStyle',
-    'appendToBody'
+    'appendToBody',
+    'initialIndex'
   ],
   setup(props, context): any {
     return setup({

@@ -81,6 +81,22 @@ export default {
       codeFiles: ['preview.vue']
     },
     {
+      demoId: 'initial-index',
+      name: {
+        'zh-CN': '初始预览索引',
+        'en-US': 'Initial Preview Index'
+      },
+      desc: {
+        'zh-CN': '通过 <code>initial-index</code> 属性设置图片预览时的初始索引，从0开始计数。',
+        'en-US':
+          'Set the initial index when previewing images through the <code>initial-index</code> attribute, counting from 0.'
+      },
+      codeFiles: ['initial-index.vue'],
+      meta: {
+        stable: '3.29.0'
+      }
+    },
+    {
       demoId: 'keep-style',
       name: {
         'zh-CN': '保持图片样式属性',
@@ -213,6 +229,19 @@ export default {
       },
       apis: ['preview-src-list', 'z-index', 'show-index'],
       demos: ['preview']
+    },
+    {
+      id: 'initial-index',
+      name: '初始预览索引',
+      support: {
+        value: true
+      },
+      description: '通过 initial-index 属性设置图片预览时的初始索引。',
+      cloud: {
+        value: false
+      },
+      apis: ['initial-index'],
+      demos: ['initial-index']
     },
     {
       id: 'style',
